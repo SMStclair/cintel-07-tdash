@@ -1,3 +1,6 @@
+#-----------------------------------------------------------------------------
+# imports (at the top)
+#-----------------------------------------------------------------------------
 import seaborn as sns
 from faicons import icon_svg
 
@@ -5,11 +8,19 @@ from shiny import reactive
 from shiny.express import input, render, ui
 import palmerpenguins 
 
+#-----------------------------------------------------------------------------
+# load Penguins data into dataframe
+#-----------------------------------------------------------------------------
 df = palmerpenguins.load_penguins()
 
+#-----------------------------------------------------------------------------
+# setup overall page UI
+#-----------------------------------------------------------------------------
 ui.page_opts(title="Penguins dashboard", fillable=True)
 
-
+#-----------------------------------------------------------------------------
+# implement and fill sidebar
+#-----------------------------------------------------------------------------
 with ui.sidebar(title="Filter controls"):
     ui.input_slider("mass", "Mass", 2000, 6000, 6000)
     ui.input_checkbox_group(
@@ -47,7 +58,9 @@ with ui.sidebar(title="Filter controls"):
         target="_blank",
     )
 
-
+#-----------------------------------------------------------------------------
+# fill main section layout, cards, and charts.
+#-----------------------------------------------------------------------------
 with ui.layout_column_wrap(fill=False):
     with ui.value_box(showcase=icon_svg("earlybirds")):
         "Number of penguins"
@@ -98,10 +111,14 @@ with ui.layout_columns():
             ]
             return render.DataGrid(filtered_df()[cols], filters=True)
 
-
+#-----------------------------------------------------------------------------
+# add include css section to load style choices
+#-----------------------------------------------------------------------------
 #ui.include_css(app_dir / "styles.css")
 
-
+#-----------------------------------------------------------------------------
+# define a reactive calc to filter the palmer penguins dataset
+#-----------------------------------------------------------------------------
 @reactive.calc
 def filtered_df():
     filt_df = df[df["species"].isin(input.species())]
