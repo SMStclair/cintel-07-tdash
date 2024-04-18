@@ -16,12 +16,12 @@ df = palmerpenguins.load_penguins()
 #-----------------------------------------------------------------------------
 # setup overall page UI
 #-----------------------------------------------------------------------------
-ui.page_opts(title="Penguins dashboard", fillable=True)
+ui.page_opts(title="Sean's Penguin Data Dashboard", fillable=True)
 
 #-----------------------------------------------------------------------------
 # implement and fill sidebar
 #-----------------------------------------------------------------------------
-with ui.sidebar(title="Filter controls"):
+with ui.sidebar(title="Filter Options"):
     ui.input_slider("mass", "Mass", 2000, 6000, 6000)
     ui.input_checkbox_group(
         "species",
@@ -37,7 +37,7 @@ with ui.sidebar(title="Filter controls"):
         target="_blank",
     )
     ui.a(
-        "GitHub App",
+        "GitHub Pages App",
         href="https://denisecase.github.io/cintel-07-tdash/",
         target="_blank",
     )
@@ -86,7 +86,7 @@ with ui.layout_column_wrap(fill=False):
 
 with ui.layout_columns():
     with ui.card(full_screen=True):
-        ui.card_header("Bill length and depth")
+        ui.card_header("Bill length and depth scatterplot")
 
         @render.plot
         def length_depth():
